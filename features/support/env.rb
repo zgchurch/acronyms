@@ -7,6 +7,9 @@ require 'spec/expectations'
 require 'rack/test'
 require 'webrat'
 
+paths_file = File.join(File.dirname(__FILE__), *%w[paths.rb])
+require paths_file
+
 Webrat.configure do |config|
   config.mode = :rack
 end
@@ -15,6 +18,7 @@ class MyWorld
   include Rack::Test::Methods
   include Webrat::Methods
   include Webrat::Matchers
+  include NavigationHelpers
 
   Webrat::Methods.delegate_to_session :response_code, :response_body
 
